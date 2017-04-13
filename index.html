@@ -49,9 +49,16 @@
     <script>
         $(document).ready(function() {
 
-            $('input.city').typeahead({
-                name: 'city',
-                remote: 'city.php?query=%QUERY'
+             $.get('mysql.php', function(data){
+            var students = JSON.parse(data);
+
+            $('#name').autocomplete({
+                source: students
+            });
+
+            $('input.name').typeahead({
+                name: 'name',
+                remote: 'name.php?query=%QUERY'
 
             });
 
@@ -63,15 +70,33 @@
     <div class="content">
 
         <form>
-            <h1>Enter your address: </h1>
-            <input type="text" name="country" id="country" size="30" class="city" placeholder="Please Enter City or ZIP code">
-            <div id="countryList"></div>
+            h1>Try it yourself</h1>
+            <input type="text" name="name" size="30" class="name" placeholder="Please Enter City or ZIP code">
         </form>
     </div>
 </body>
 
 </html>
 
+<!--
+
+<script src="../jquery-ui.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $.get('mysql.php', function(data){
+            var students = JSON.parse(data);
+
+            $('#name').autocomplete({
+                source: students
+            });
+
+        });
+
+    });
+</script> -->
+
+
+<!--
  <script>  
  $(document).ready(function(){  
       $('#country').keyup(function(){  
@@ -79,7 +104,7 @@
            if(query != '')  
            {  
                 $.ajax({  
-                     url:"search.php",  
+                     url:"mysql.php",  
                      method:"POST",  
                      data:{query:query},  
                      success:function(data)  
@@ -95,4 +120,4 @@
            $('#countryList').fadeOut();  
       });  
  });  
- </script>  
+ </script>  -->

@@ -16,7 +16,7 @@ $password = "";
         }
 
      //creating table if it doesnt exist   
-    $stat2 = $conn->prepare("CREATE TABLE IF NOT EXISTS `add6` (
+    $stat2 = $conn->prepare("CREATE TABLE IF NOT EXISTS `DE_Table` (
     `Locid` INT AUTO_INCREMENT NOT NULL,
     `name` varchar(200),
     `lat` varchar(100),
@@ -36,7 +36,7 @@ $password = "";
                         $result[] = array_combine($headers,$line);    
     fclose($fp);
     for($j=0; $j<sizeof($result);$j++){
-        $sql = "INSERT IGNORE INTO add6 (locid, name,lat,lon)
+        $sql = "INSERT IGNORE INTO DE_Table (locid, name,lat,lon)
                 VALUES (:locid, :name, :lat, :lon)";
         $statement =$conn->prepare($sql);
         $statement->bindValue(':locid', $result[$j]['#loc_id']);
@@ -44,7 +44,5 @@ $password = "";
         $statement->bindValue(':lat', $result[$j]['lat']);
         $statement->bindValue(':lon', $result[$j]['lon']);
         $inserted = $statement->execute();
-
-        echo $inserted;
     }
 ?> 

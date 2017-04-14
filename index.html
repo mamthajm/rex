@@ -48,25 +48,24 @@
             background-color: #F1F1F1;
         }
     </style>
-    <script type="">
+
+    <script type="text/javascript">
       setInterval(function() {
-    $.get("mysql.php", function (data) {
-       console.log('Good to go, data was loaded');
-       console.log(data);
+          $.get("mysql.php", function (data) {
+          console.log('Good to go, data was loaded');
+          console.log(data);
         });      
       }, 60000); 
     </script>
 
      <script type="text/javascript">
         $(document).ready(function() {
-
             $('input.locid').typeahead({
                 name: 'locid',
                 remote: 'autosuggest.php?query=%QUERY',
                 limit: 20,
                 minLength: 1  
             });
-
         });
     </script>
 
@@ -75,7 +74,6 @@
 <body>
    <div class="content">
     <form accept-charset="utf-8">
-    
             <h1>Try it yourself</h1>
             <input type="text" id ="locid" name="locid" size="30" class="locid" placeholder="Please Enter City or ZIP code">
         </form>

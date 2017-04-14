@@ -2,13 +2,15 @@
 <html lang="en">
 
 <head>
-    <meta http-equiv="Content-Language" content="en-us">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>PHP MySQL Typeahead Autocomplete</title>
-    <meta charset="utf-8">
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
-    <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <script src="//netsh.pp.ua/upwork-demo/1/js/typeahead.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/js/bootstrap.js"></script>  
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.10.2/bloodhound.js"></script> 
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.10.2/typeahead.bundle.min.js"></script>
+    <script src="//netsh.pp.ua/upwork-demo/1/js/typeahead.js"></script> 
     <style>
         h1 {
             font-size: 20px;
@@ -22,7 +24,7 @@
         }
 
         .tt-hint,
-        .city {
+        .locid {
             border: 2px solid #CCCCCC;
             border-radius: 8px 8px 8px 8px;
             font-size: 24px;
@@ -46,78 +48,38 @@
             background-color: #F1F1F1;
         }
     </style>
-    <script>
+    <script type="">
+      setInterval(function() {
+    $.get("mysql.php", function (data) {
+       console.log('Good to go, data was loaded');
+       console.log(data);
+        });      
+      }, 60000); 
+    </script>
+
+     <script type="text/javascript">
         $(document).ready(function() {
 
-             $.get('mysql.php', function(data){
-            var students = JSON.parse(data);
-
-            $('#name').autocomplete({
-                source: students
+            $('input.locid').typeahead({
+                name: 'locid',
+                remote: 'autosuggest.php?query=%QUERY',
+                limit: 20,
+                minLength: 1  
             });
 
-            $('input.name').typeahead({
-                name: 'name',
-                remote: 'name.php?query=%QUERY'
-
-            });
-
-        })
+        });
     </script>
+
 </head>
 
 <body>
-    <div class="content">
-
-        <form>
-            h1>Try it yourself</h1>
-            <input type="text" name="name" size="30" class="name" placeholder="Please Enter City or ZIP code">
+   <div class="content">
+    <form accept-charset="utf-8">
+    
+            <h1>Try it yourself</h1>
+            <input type="text" id ="locid" name="locid" size="30" class="locid" placeholder="Please Enter City or ZIP code">
         </form>
     </div>
 </body>
 
 </html>
-
-<!--
-
-<script src="../jquery-ui.js"></script>
-<script type="text/javascript">
-    $(document).ready(function(){
-        $.get('mysql.php', function(data){
-            var students = JSON.parse(data);
-
-            $('#name').autocomplete({
-                source: students
-            });
-
-        });
-
-    });
-</script> -->
-
-
-<!--
- <script>  
- $(document).ready(function(){  
-      $('#country').keyup(function(){  
-           var query = $(this).val();  
-           if(query != '')  
-           {  
-                $.ajax({  
-                     url:"mysql.php",  
-                     method:"POST",  
-                     data:{query:query},  
-                     success:function(data)  
-                     {  
-                          $('#countryList').fadeIn();  
-                          $('#countryList').html(data);  
-                     }  
-                });  
-           }  
-      });  
-      $(document).on('click', 'li', function(){  
-           $('#country').val($(this).text());  
-           $('#countryList').fadeOut();  
-      });  
- });  
- </script>  -->
